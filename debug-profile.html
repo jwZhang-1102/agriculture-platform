@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile页面调试</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .test { background: #f0f0f0; padding: 20px; margin: 10px 0; border-radius: 8px; }
+        .error { color: red; font-weight: bold; }
+        .success { color: green; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Profile页面调试工具</h1>
+    
+    <div class="test">
+        <h2>1. 检查JavaScript错误</h2>
+        <p>请按F12打开开发者工具，查看Console标签页是否有红色错误信息。</p>
+        <button onclick="checkErrors()">检查错误</button>
+        <div id="error-status"></div>
+    </div>
+    
+    <div class="test">
+        <h2>2. 检查Vue应用状态</h2>
+        <button onclick="checkVue()">检查Vue应用</button>
+        <div id="vue-status"></div>
+    </div>
+    
+    <div class="test">
+        <h2>3. 直接访问Profile页面</h2>
+        <p><a href="/profile" target="_blank">点击这里访问个人中心页面</a></p>
+        <p>如果页面空白，请查看控制台错误信息。</p>
+    </div>
+
+    <script>
+        function checkErrors() {
+            const statusDiv = document.getElementById('error-status');
+            
+            // 检查是否有全局错误
+            if (window.Vue) {
+                statusDiv.innerHTML = '<p class="success">✅ Vue.js已加载</p>';
+            } else {
+                statusDiv.innerHTML = '<p class="error">❌ Vue.js未加载 - 检查控制台错误</p>';
+            }
+            
+            // 检查Element Plus
+            if (window.ELEMENT) {
+                statusDiv.innerHTML += '<p class="success">✅ Element Plus已加载</p>';
+            } else {
+                statusDiv.innerHTML += '<p class="error">❌ Element Plus未加载</p>';
+            }
+        }
+        
+        function checkVue() {
+            const statusDiv = document.getElementById('vue-status');
+            
+            // 检查Vue应用是否挂载
+            const appElement = document.getElementById('app');
+            if (appElement && appElement.__vue_app__) {
+                statusDiv.innerHTML = '<p class="success">✅ Vue应用已正确挂载</p>';
+            } else {
+                statusDiv.innerHTML = '<p class="error">❌ Vue应用未正确挂载</p>';
+            }
+            
+            // 检查路由
+            if (window.location.pathname === '/profile') {
+                statusDiv.innerHTML += '<p class="success">✅ 当前在Profile页面</p>';
+            }
+        }
+        
+        // 页面加载时自动检查
+        window.addEventListener('load', function() {
+            console.log('调试页面加载完成');
+            checkErrors();
+        });
+        
+        // 捕获全局错误
+        window.addEventListener('error', function(e) {
+            console.error('全局错误:', e.error);
+            document.getElementById('error-status').innerHTML += 
+                '<p class="error">❌ JavaScript错误: ' + e.message + '</p>';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "agriculture-platform-server",
+  "version": "1.0.0",
+  "description": "农业平台后端API服务",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "init-db": "node -e \"require('./database.js').connect().then(() => console.log('数据库初始化成功')).catch(console.error)\"",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.15.3",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.0.0"
+  },
+  "keywords": [
+    "agriculture",
+    "platform",
+    "api"
+  ],
+  "author": "",
+  "license": "ISC"
+}

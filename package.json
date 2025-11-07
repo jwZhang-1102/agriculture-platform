@@ -1,0 +1,29 @@
+{
+  "name": "agriculture-platform",
+  "version": "1.0.0",
+  "description": "农业平台 - 前后端分离项目",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run serve",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "keywords": [
+    "agriculture",
+    "platform",
+    "vue",
+    "express",
+    "mysql"
+  ],
+  "author": "",
+  "license": "ISC"
+}
